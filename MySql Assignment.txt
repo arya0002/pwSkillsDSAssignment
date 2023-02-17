@@ -1,0 +1,131 @@
+Q1. What is a database? Differentiate between SQL and NoSQL databases.
+Answer: A database is a collection of organized data that can be accessed, managed, and updated easily. It is a critical component of many applications and systems, as it allows for efficient data storage and retrieval.
+
+SQL (Structured Query Language) 
+SQL databases use a relational data model that organizes data into tables with predefined columns and rows. Data in SQL databases must adhere to a specific schema, which enforces data integrity and consistency. SQL databases are often used for transactional systems, such as banking applications, where data consistency and accuracy are critical.
+
+NoSQL
+NoSQL databases use a non-relational data model that stores data in flexible and scalable data structures such as key-value stores, document stores, or graph databases. NoSQL databases do not enforce a schema, which allows for more flexible data storage and retrieval, and they can handle unstructured and semi-structured data better than SQL databases. 
+NoSQL databases are often used for big data and real-time applications, such as social media and IoT platforms, where data is highly distributed and requires high scalability and performance.
+
+Overall, the choice between SQL and NoSQL databases depends on the specific use case and requirements of the application. SQL databases are better suited for applications that require strong data consistency, while NoSQL databases are better suited for applications that require high scalability, flexibility, and performance.
+
+
+
+
+
+Q2. What is DDL? Explain why CREATE, DROP, ALTER, and TRUNCATE are used with an example.
+Answer: DDL stands for Data Definition Language, and it is a subset of SQL that is used to define and manage the structure of a database. DDL commands are used to create, modify, and delete database objects such as tables, indexes, and constraints.
+
+1.CREATE: The CREATE command is used to create a new object in the database. It can be used to create tables, indexes, views, and other objects. For example, the following command creates a new table named "users" with three columns: id, name, and email.
+Eg: CREATE TABLE users (
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  email VARCHAR(50)
+);
+
+2.DROP: The DROP command is used to delete an existing object from the database. For example, the following command deletes the "users" table:
+Eg: DROP TABLE users;
+
+3.ALTER: The ALTER command is used to modify the structure of an existing object in the database. It can be used to add or remove columns from a table, modify column data types, or change constraints. For example, the following command adds a new column "age" to the "users" table:
+Eg: ALTER TABLE users ADD age INT;
+
+4.TRUNCATE: The TRUNCATE command is used to delete all data from a table, while keeping the table structure intact. This command is faster than using the DELETE command to delete all data because it does not log individual row deletions. For example, the following command deletes all data from the "users" table:
+Eg: TRUNCATE TABLE users;
+
+
+
+
+
+Q3. What is DML? Explain INSERT, UPDATE, and DELETE with an example.
+Answer: DML stands for Data Manipulation Language, which is a subset of SQL that is used to manipulate data in a database. DML commands are used to add, modify, or delete data from database objects such as tables.
+
+1.INSERT: The INSERT command is used to add new rows of data to a table. For example, the following command inserts a new row into the "users" table with values for the "id", "name", and "email" columns:
+Eg: INSERT INTO users (id, name, email) VALUES (1, 'John Doe', 'john.doe@example.com');
+
+2.UPDATE: The UPDATE command is used to modify existing data in a table. For example, the following command updates the email address for the user with an "id" of 1:
+Eg: UPDATE users SET email = 'jane.doe@example.com' WHERE id = 1;
+
+3.DELETE: The DELETE command is used to remove one or more rows of data from a table. For example, the following command deletes the row with an "id" of 1 from the "users" table:
+Eg: DELETE FROM users WHERE id = 1;
+
+
+
+
+Q4. What is DQL? Explain SELECT with an example.
+Answer: DQL stands for Data Query Language, which is a subset of SQL that is used to retrieve data from a database. DQL commands are used to query and retrieve data from database objects such as tables.
+SELECT: The SELECT command is used to retrieve data from one or more tables. It can be used to select specific columns, apply filters and sorting, and perform aggregate functions such as SUM, COUNT, and AVG. 
+For example, the following command selects all columns from the "users" table:
+SELECT * FROM users;
+
+The SELECT statement can also be used to retrieve specific columns from a table, as shown in the following example:
+SELECT name, email FROM users;
+
+The SELECT statement can also be used to apply filters to the retrieved data using the WHERE clause. For example, the following command selects all rows from the "users" table where the name is 'John':
+SELECT * FROM users WHERE name = 'John';
+
+The SELECT statement can also be used to sort the retrieved data using the ORDER BY clause. For example, the following command selects all rows from the "users" table sorted by name in ascending order:
+SELECT * FROM users ORDER BY name ASC;
+
+
+
+
+Q5. Explain Primary Key and Foreign Key.
+Answer: A primary key is a column or set of columns in a table that uniquely identifies each row in the table. It is used to enforce the integrity of the data in the table and ensure that each row has a unique identifier. The primary key is used to establish relationships with other tables in the database, typically through the use of a foreign key.
+
+A foreign key is a column or set of columns in one table that refers to the primary key in another table. It is used to create a relationship between the two tables and enforce referential integrity, which means that the data in the table is consistent and valid. When a foreign key is defined, it ensures that the data in the foreign key column(s) in the referring table matches the data in the primary key column(s) in the referenced table.
+
+
+
+
+Q6. Write a python code to connect MySQL to python. Explain the cursor() and execute() method.
+Answer: 
+import mysql.connector
+
+# Connect to the MySQL server
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="username",
+  password="password",
+)
+
+# Create a cursor object
+mycursor = mydb.cursor()
+
+# Use the cursor to execute SQL commands
+mycursor.execute("SELECT * FROM test1.testtable1")
+
+# Fetch the results
+result = mycursor.fetchall()
+
+# Loop through the results and print each row
+for i in result:
+  print(i)
+  
+The cursor() is used to execute SQL commands and fetch the results. 
+The execute() method is used to execute an SQL command on the database. 
+
+
+
+
+
+Q7. Give the order of execution of SQL clauses in an SQL query.
+Answer: The order of execution of SQL clauses in an SQL query follows this sequence:
+
+FROM clause: Specifies the tables from which the data is to be retrieved.
+
+JOIN clause: Specifies the conditions to join multiple tables.
+
+WHERE clause: Filters the rows based on specified conditions.
+
+GROUP BY clause: Groups the rows based on specified columns.
+
+HAVING clause: Filters the groups based on specified conditions.
+
+SELECT clause: Specifies the columns to be retrieved.
+
+ORDER BY clause: Sorts the result set based on specified columns.
+
+LIMIT clause: Specifies the maximum number of rows to be returned.
+
+It is important to note that some of these clauses may not be present in every SQL query, and some clauses may be executed in a different order depending on the specific query. For example, the GROUP BY clause may be executed before the SELECT clause in some queries.
