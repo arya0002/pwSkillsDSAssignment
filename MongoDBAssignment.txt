@@ -1,0 +1,156 @@
+Q1. What is MongoDB? Explain non-relational databases in short. In which scenarios it is preferred to use
+MongoDB over SQL databases?
+Answer: MongoDB is a popular non-relational database that stores data in the form of JSON-like documents, rather than in tables with rows and columns like in traditional SQL databases. It is designed to be highly scalable and flexible, making it a popular choice for many modern web and mobile applications.
+
+Non-relational databases, also known as NoSQL databases, are databases that do not use a tabular schema to store data. Instead, they use flexible, non-structured data models such as key-value pairs, documents, or graphs. Non-relational databases are generally more flexible, horizontally scalable, and can handle unstructured and semi-structured data much better than traditional SQL databases.
+
+MongoDB is preferred over SQL databases in scenarios where the data is highly unstructured, rapidly changing, or needs to be highly scalable. It is especially useful for applications that deal with large amounts of unstructured data such as social media platforms, content management systems, or real-time analytics. MongoDB's document-based model allows for greater flexibility in data modeling, which can lead to improved performance and faster development cycles. Additionally, MongoDB has built-in support for sharding, which enables it to scale horizontally across multiple servers.
+
+
+
+
+
+
+
+Q2. State and Explain the features of MongoDB.
+Answer: Some of the key features of MongoDB are:
+
+1.Document-based Data Model: MongoDB stores data in the form of JSON-like documents, which are flexible and hierarchical. This allows for easier data modeling and more efficient querying compared to traditional relational databases.
+
+2.Dynamic Schema: MongoDB has a dynamic schema, which means that you can add fields to a document without having to update the entire schema or other documents in the collection. This makes it easier to handle unstructured or rapidly changing data.
+
+3.High Scalability: MongoDB is designed to be highly scalable, both vertically and horizontally. It supports sharding, which allows you to partition data across multiple servers, and replication, which provides high availability and fault tolerance.
+
+4.High Performance: MongoDB is designed for high performance, with features such as in-memory storage, automatic indexing, and support for complex queries. It is also optimized for write-heavy workloads, making it ideal for real-time applications.
+
+5.Flexible Data Model: MongoDB supports a variety of data types, including arrays, embedded documents, and binary data. This allows for greater flexibility in data modeling and can lead to improved performance.
+
+6.Built-in Aggregation Framework: MongoDB has a powerful aggregation framework that allows for complex data analysis and aggregation. It includes a wide range of operators and functions for grouping, filtering, and transforming data.
+
+7.Native JSON Support: MongoDB natively supports JSON, which is the most popular data format for modern web and mobile applications. This makes it easier to integrate with other parts of the application stack, such as frontend frameworks.
+
+
+
+
+
+
+
+Q3. Write a code to connect MongoDB to Python. Also, create a database and a collection in MongoDB.
+Answer: 
+
+import pymongo
+client = pymongo.MongoClient(//put the connection url here)
+db = client.test
+
+# Create a new database called 'mydatabase'
+db = client['testDatabase']
+
+# Create a new collection called 'mycollection'
+amitCollection = db['testCollection']
+
+
+Q4. Using the database and the collection created in question number 3, write a code to insert one record,
+and insert many records. Use the find() and find_one() methods to print the inserted record.
+Answer: 
+
+# Insert a document into the collection
+document = {
+  "name": "Amit kumar",
+  "email": "amit.kumar@example.com",
+  "age": 30
+}
+amitCollection.insert_one(document)
+
+# Insert many document into the collection
+document1 = [
+  { "name": "Amy", "address": "Apple st 652" },
+  { "name": "Hannah", "address": "Mountain 21" },
+  { "name": "Michael", "address": "Valley 345" },
+  ]
+amitCollection.insert_many(document1)
+
+
+# Find all the documents in the collection and print them
+for doc in amitCollection.find():
+    print(doc)
+    
+# Find one documents in the collection and print them
+for doc in amitCollection.find_one():
+    print(doc)
+
+
+
+
+
+
+
+Q5. Explain how you can use the find() method to query the MongoDB database. Write a simple code to
+demonstrate this.
+Answer: The find() method is used to query data from a collection in MongoDB. It returns a cursor object that can be used to iterate over the results of the query.
+
+The find() method can take various parameters to filter the results, including criteria for matching documents, projection to select specific fields, sorting, and limiting the number of results returned.
+
+Here's an example code snippet to demonstrate how to use the find() method in Python:
+
+# Find documents with a specific name
+results = amitCollection.find({"name": "Amy"})
+
+# Iterate over the results and print them
+for i in results:
+    print(i)
+
+
+
+
+
+
+
+Q6. Explain the sort() method. Give an example to demonstrate sorting in MongoDB.
+Answer: The sort() method in MongoDB is used to sort the results of a query in ascending or descending order based on one or more fields. The sort() method takes a dictionary of fields and sorting directions as its parameter.
+
+In the dictionary, each key represents a field to sort on, and its value is the sorting direction. A value of 1 represents ascending order, while a value of -1 represents descending order. You can also sort by multiple fields by passing a list of dictionaries as the sort parameter.
+
+Here is an example to demonstrate how to use the sort() method in MongoDB:
+
+Suppose we have a collection named "users" containing the following documents:
+{"name": "Alice", "age": 25}
+{"name": "Bob", "age": 35}
+{"name": "Charlie", "age": 30}
+
+
+To sort the documents in the collection by the name field in ascending order, we can use the following code:
+
+results = collection.find().sort("name", 1)
+
+for result in results:
+    print(result)
+    
+    
+    
+To sort by multiple fields, we can pass a list of dictionaries as the sort parameter, where each dictionary represents a field to sort on and its sorting direction. For example, to sort by the age field in descending order after sorting by the name field in ascending order, we can use the following code:
+
+results = collection.find().sort([("name", 1), ("age", -1)])
+
+for result in results:
+    print(result)
+    
+    
+    
+    
+    
+    
+
+Q7. Explain why delete_one(), delete_many(), and drop() is used.
+Answer: In MongoDB, the delete_one() and delete_many() methods are used to delete one or many documents that match a specified filter criteria in a collection, while the drop() method is used to delete an entire collection.
+
+Here's a brief explanation of each method:
+
+delete_one(filter) method deletes a single document that matches the specified filter. If there are multiple documents that match the filter, only the first one found will be deleted. This method returns a DeleteResult object that contains information about the operation, including the number of documents deleted.
+
+delete_many(filter) method deletes all documents that match the specified filter. This method returns a DeleteResult object that contains information about the operation, including the number of documents deleted.
+
+drop() method deletes the entire collection, including all of its documents. This method returns None.
+
+These methods are important for managing data in a MongoDB database. When data is no longer needed, it can be deleted using the appropriate method.
+
+For example, if you have a collection of customer orders and want to delete a single order, you can use the delete_one() method with a filter that matches the order you want to delete. If you want to delete all orders from a certain date, you can use the delete_many() method with a filter that matches all orders from that date. If you want to completely remove the collection of orders, you can use the drop() method.
